@@ -76,32 +76,32 @@ echo -ne " Done\nInstalling blinkt nodes..."
 kubectl apply -f blinkt-k8s-controller-rbac.yaml >> log 2>&1
 kubectl apply -f blinkt-k8s-controller-nodes.yaml >> log 2>&1
 
-kubectl label node node1 blinktImage=nodes >> log 2>&1
-kubectl label node node1 blinktShow=true >> log 2>&1
-kubectl label node node1 blinktReadyColor=cpu >> log 2>&1
+kubectl label node pico0 blinktImage=nodes >> log 2>&1
+kubectl label node pico0 blinktShow=true >> log 2>&1
+kubectl label node pico0 blinktReadyColor=cpu >> log 2>&1
 sleep 1
 
 echo -ne " Done\nWaiting for blinkt nodes..."
 ds_wait kube-system blinkt-k8s-controller-nodes 1
 
-kubectl label node node2 blinktImage=pods >> log 2>&1
-kubectl label node node2 blinktShow=true >> log 2>&1
-kubectl label node node2 blinktReadyColor=cpu >> log 2>&1
+kubectl label node pico1 blinktImage=pods >> log 2>&1
+kubectl label node pico1 blinktShow=true >> log 2>&1
+kubectl label node pico1 blinktReadyColor=cpu >> log 2>&1
 sleep 1
 
-kubectl label node node3 blinktImage=pods >> log 2>&1
-kubectl label node node3 blinktShow=true >> log 2>&1
-kubectl label node node3 blinktReadyColor=cpu >> log 2>&1
+kubectl label node pico2 blinktImage=pods >> log 2>&1
+kubectl label node pico2 blinktShow=true >> log 2>&1
+kubectl label node pico2 blinktReadyColor=cpu >> log 2>&1
 sleep 1
 
-kubectl label node node4 blinktImage=pods >> log 2>&1
-kubectl label node node4 blinktShow=true >> log 2>&1
-kubectl label node node4 blinktReadyColor=cpu >> log 2>&1
+kubectl label node pico3 blinktImage=pods >> log 2>&1
+kubectl label node pico3 blinktShow=true >> log 2>&1
+kubectl label node pico3 blinktReadyColor=cpu >> log 2>&1
 sleep 1
 
-kubectl label node node5 blinktImage=pods >> log 2>&1
-kubectl label node node5 blinktShow=true >> log 2>&1
-kubectl label node node5 blinktReadyColor=cpu >> log 2>&1
+kubectl label node pico4 blinktImage=pods >> log 2>&1
+kubectl label node pico4 blinktShow=true >> log 2>&1
+kubectl label node pico4 blinktReadyColor=cpu >> log 2>&1
 sleep 1
 
 echo -ne " Done\nInstalling blinkt pods..."
