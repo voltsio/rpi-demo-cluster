@@ -34,11 +34,11 @@ ds_wait kube-system kube-proxy 1
 echo -ne " Done\nJoining workers..."
 parallel-ssh -i -h worker-nodes -t 0 "sudo kubeadm join --skip-preflight-checks --token 123456.1234567890123456 10.34.42.182:6443" >> log 2>&1
 
-echo -ne " Done\nWaiting for kube-proxy..."
-ds_wait kube-system kube-proxy 5
-
 echo -ne " Done\nInstalling flannel..."
 kubectl apply -f kube-flannel.yaml >> log 2>&1
+
+echo -ne " Done\nWaiting for kube-proxy..."
+ds_wait kube-system kube-proxy 5
 
 echo -ne " Done\nWaiting for flannel..."
 ds_wait kube-system kube-flannel-ds 5
