@@ -40,8 +40,8 @@ parallel-ssh -i -h worker-nodes -t 0 "sudo kubeadm join --skip-preflight-checks 
 echo -ne " Done\nInstalling flannel..."
 kubectl apply -f kube-flannel.yaml >> log 2>&1
 
-echo -ne " Done\nWaiting for flannel..."
-ds_wait kube-system kube-flannel-ds 5
+# echo -ne " Done\nWaiting for flannel..."
+# ds_wait kube-system kube-flannel-ds 5
 
 echo -ne " Done\nWaiting for kube-dns..."
 deploy_wait kube-system kube-dns 1
