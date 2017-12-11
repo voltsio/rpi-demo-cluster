@@ -33,6 +33,7 @@ if [ "$1" == "clean" ]; then
   echo -ne " Done\nResetting workers..."
   parallel-ssh -i -h worker-nodes -t 0 "sudo kubeadm reset" >> log 2>&1
 
+  sleep 10
   echo -ne " Done\nEverything is reset. Starting clean.\n\n"
 fi
 
@@ -49,15 +50,16 @@ parallel-ssh -i -h worker-nodes -t 0 "sudo kubeadm join --skip-preflight-checks 
 
 echo -ne " Done\nListing workers: "
 kubectl get nodes -o wide >> log 2>&1
+sleep 10
 
 echo -ne " Done\nWaiting for kube-proxy (5)..."
-ds_wait kube-system kube-proxy 1
+ds_wait kube-system kube-proxy 5
 
 echo -ne " Done\nInstalling flannel..."
 kubectl apply -f kube-flannel.yaml >> log 2>&1
 
 echo -ne " Done\nWaiting for flannel (5)..."
-ds_wait kube-system kube-flannel-ds 1
+ds_wait kube-system kube-flannel-ds 5
 
 echo -ne " Done\nWaiting for kube-dns..."
 deploy_wait kube-system kube-dns 1
