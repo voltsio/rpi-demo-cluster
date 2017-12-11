@@ -53,7 +53,7 @@ ds_wait kube-system kube-proxy 5
 echo -ne " Done\nInstalling flannel..."
 kubectl apply -f kube-flannel.yaml >> log 2>&1
 
-echo -ne " Done\nWaiting for flannel..."
+echo -ne " Done\nWaiting for flannel (5)..."
 ds_wait kube-system kube-flannel-ds 5
 
 echo -ne " Done\nWaiting for kube-dns..."
