@@ -23,6 +23,20 @@ function ds_wait {
 
 trap error ERR
 
+
+if [ "$1" == "clean" ]; then
+  echo -n "Resetting k8s cluster..."
+  sudo kubeadm reset
+  sleep 10
+
+  echo -ne " Done\nResetting workers..."
+  parallel-ssh -i -h worker-nodes -t 0 "sudo kubeadm reset" >> log 2>&1
+
+  echo -ne " Done\nEverything is reset. Starting clean."
+fi
+
+
+
 echo -n "Configuring k8s master..."
 sudo kubeadm init --config config.yaml >> log 2>&1
 sudo cp /etc/kubernetes/admin.conf $HOME/.kube/config >> log 2>&1
