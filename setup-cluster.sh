@@ -9,6 +9,7 @@ function error {
 function resource_wait {
     while [ "$(kubectl get $1 -n $2 $3 -o json | jq .status.$4)" != "$5" ]
     do
+        echo -ne " kubectl get $1 -n $2 $3 :: $5"
         sleep 5
     done
 }
@@ -26,15 +27,14 @@ trap error ERR
 
 if [ "$1" == "clean" ]; then
   echo -n "Resetting k8s cluster..."
-  sudo kubeadm reset
+  sudo kubeadm reset >> log 2>&1
   sleep 10
 
   echo -ne " Done\nResetting workers..."
   parallel-ssh -i -h worker-nodes -t 0 "sudo kubeadm reset" >> log 2>&1
 
-  echo -ne " Done\nEverything is reset. Starting clean."
+  echo -ne " Done\nEverything is reset. Starting clean.\n\n"
 fi
-
 
 
 echo -n "Configuring k8s master..."
@@ -48,7 +48,7 @@ ds_wait kube-system kube-proxy 1
 echo -ne " Done\nJoining workers..."
 parallel-ssh -i -h worker-nodes -t 0 "sudo kubeadm join --skip-preflight-checks --token 123456.1234567890123456 10.34.42.182:6443" >> log 2>&1
 
-echo -ne " Done\nWaiting for kube-proxy..."
+echo -ne " Done\nWaiting for kube-proxy (5)..."
 ds_wait kube-system kube-proxy 5
 
 echo -ne " Done\nInstalling flannel..."
