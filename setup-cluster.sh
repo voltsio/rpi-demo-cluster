@@ -9,7 +9,7 @@ function error {
 function resource_wait {
     while [ "$(kubectl get $1 -n $2 $3 -o json | jq .status.$4)" != "$5" ]
     do
-        echo -ne " kubectl get $1 -n $2 $3 :: $5"
+        echo -ne " \n("$(kubectl get $1 -n $2 $3 -o json | jq .status.$4)" != "$5")\n"
         sleep 5
     done
 }
@@ -36,7 +36,6 @@ if [ "$1" == "clean" ]; then
   echo -ne " Done\nEverything is reset. Starting clean.\n\n"
 fi
 
-
 echo -n "Configuring k8s master..."
 sudo kubeadm init --config config.yaml >> log 2>&1
 sudo cp /etc/kubernetes/admin.conf $HOME/.kube/config >> log 2>&1
@@ -46,9 +45,9 @@ echo -ne " Done\nWaiting for kube-proxy..."
 ds_wait kube-system kube-proxy 1
 
 echo -ne " Done\nJoining workers..."
-parallel-ssh -i -h worker-nodes -t 0 "sudo kubeadm join --token 123456.1234567890123456 10.34.42.182:6443" >> log 2>&1
+parallel-ssh -i -h worker-nodes -t 0 "sudo kubeadm join --skip-preflight-checks --token 123456.1234567890123456 10.34.42.182:6443" >> log 2>&1
 
-echo -ne " Done\nWaiting for kube-proxy..."
+echo -ne " Done\nWaiting for kube-proxy (5)..."
 ds_wait kube-system kube-proxy 5
 
 echo -ne " Done\nInstalling flannel..."
