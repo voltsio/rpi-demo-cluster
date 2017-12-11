@@ -3,7 +3,7 @@
 set -e
 
 function error {
-    echo -e " Failed\nCheck the log for details."
+    echo -e " Failed\nCheck the log for details.\n$1"
 }
 
 function resource_wait {
@@ -34,14 +34,14 @@ ds_wait kube-system kube-proxy 1
 echo -ne " Done\nJoining workers..."
 parallel-ssh -i -h worker-nodes -t 0 "sudo kubeadm join --skip-preflight-checks --token 123456.1234567890123456 10.34.42.182:6443" >> log 2>&1
 
-# echo -ne " Done\nWaiting for kube-proxy..."
-# ds_wait kube-system kube-proxy 5
-#
+echo -ne " Done\nWaiting for kube-proxy..."
+ds_wait kube-system kube-proxy 5
+
 echo -ne " Done\nInstalling flannel..."
 kubectl apply -f kube-flannel.yaml >> log 2>&1
 
-# echo -ne " Done\nWaiting for flannel..."
-# ds_wait kube-system kube-flannel-ds 5
+echo -ne " Done\nWaiting for flannel..."
+ds_wait kube-system kube-flannel-ds 5
 
 echo -ne " Done\nWaiting for kube-dns..."
 deploy_wait kube-system kube-dns 1
@@ -61,7 +61,7 @@ deploy_wait kube-system heapster 1
 echo -ne " Done\nInstalling traefik..."
 kubectl apply -f traefik.yaml >> log 2>&1
 
-kubectl label node node1 loadBalancer=true >> log 2>&1
+kubectl label node pico0 loadBalancer=true >> log 2>&1
 
 echo -ne " Done\nWaiting for traefik..."
 deploy_wait kube-system traefik-ingress-controller 1
