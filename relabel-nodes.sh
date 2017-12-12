@@ -5,12 +5,12 @@ set -e
 N="$1"
 
 function label() {
-  kubectl label node "pico$N" blinktShow-
-  kubectl label node "pico$N" blinktImage-
-  kubectl label node "pico$N" blinktReadyColor-
-  kubectl label node "pico$N" blinktShow=true
-  kubectl label node "pico$N" blinktImage=pods
-  kubectl label node "pico$N" blinktReadyColor=cpu
+  kubectl label node "pico$1" blinktShow-
+  kubectl label node "pico$1" blinktImage-
+  kubectl label node "pico$1" blinktReadyColor-
+  kubectl label node "pico$1" blinktShow=true
+  kubectl label node "pico$1" blinktImage=pods
+  kubectl label node "pico$1" blinktReadyColor=cpu
 }
 
 label "$N"
