@@ -126,8 +126,8 @@ kubectl apply -f pi.yaml >> log 2>&1
 # echo -ne " Done\nWaiting for pi..."
 # deploy_wait default pi 1
 
-echo -ne " Done\nInstalling load-simulator..."
-kubectl apply -f load-simulator.yaml >> log 2>&1
+# echo -ne " Done\nInstalling load-simulator..."
+# kubectl apply -f load-simulator.yaml >> log 2>&1
 
 # echo -ne " Done\nWaiting for load-simulator..."
 # deploy_wait default load-simulator 1

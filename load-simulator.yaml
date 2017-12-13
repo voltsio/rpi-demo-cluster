@@ -42,6 +42,6 @@ spec:
       - image: ngpitt/load-simulator:v1
         name: load-simulator
         args:
-        - -url=http://pi.raspi/?digits=1000
+        - -url=http://pi.local/?digits=1000
         - -clients=8
         - -hpa=pi
