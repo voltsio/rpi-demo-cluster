@@ -54,9 +54,6 @@ echo -ne " Done\nWaiting for kube-dns..."
 deploy_wait kube-system kube-dns 1
 
 echo -ne " Done\nWaiting for kube-proxy..."
-ds_wait kube-system kube-proxy 1
-
-echo -ne " Done\nWaiting for kube-proxy..."
 ds_wait kube-system kube-proxy 5
 
 echo -ne " Done\nInstalling influxdb..."
