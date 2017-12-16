@@ -9,6 +9,7 @@ function error {
 function resource_wait {
     while [ "$(kubectl get $1 -n $2 $3 -o json | jq .status.$4)" != "$5" ]
     do
+        echo "kubectl get $1 -n $2 $3 -o json | jq .status.$4"
         sleep 5
     done
 }
@@ -46,7 +47,7 @@ kubectl apply -f kube-flannel.yaml >> log 2>&1
 echo -ne " Done\nJoining workers..."
 parallel-ssh -i -h worker-nodes -t 0 -v "sudo kubeadm reset && sudo kubeadm join --token 123456.1234567890123456 192.168.121.2:6443 >> log 2>&1"
 
-echo -ne " Done\nWaiting for flannel (5)..."
+echo -ne " Done\nWaiting for flannel..."
 ds_wait kube-system kube-flannel-ds 5
 
 echo -ne " Done\nWaiting for kube-dns..."
@@ -55,7 +56,7 @@ deploy_wait kube-system kube-dns 1
 echo -ne " Done\nWaiting for kube-proxy..."
 ds_wait kube-system kube-proxy 1
 
-echo -ne " Done\nWaiting for kube-proxy (5)..."
+echo -ne " Done\nWaiting for kube-proxy..."
 ds_wait kube-system kube-proxy 5
 
 echo -ne " Done\nInstalling influxdb..."
