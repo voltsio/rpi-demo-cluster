@@ -1,7 +1,7 @@
 kind: MasterConfiguration
 apiVersion: kubeadm.k8s.io/v1alpha1
 api:
-  advertiseAddress: 10.34.42.182
+  advertiseAddress: 192.168.121.2
 networking:
   podSubnet: 10.244.0.0/16
 token: "123456.1234567890123456"
