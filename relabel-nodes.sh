@@ -2,8 +2,6 @@
 
 set -e
 
-N="$1"
-
 function label() {
   kubectl label node "pico$1" blinktShow-
   kubectl label node "pico$1" blinktImage-
@@ -13,4 +11,8 @@ function label() {
   kubectl label node "pico$1" blinktReadyColor=cpu
 }
 
-label "$N"
+label 0
+label 1
+label 2
+label 3
+label 4

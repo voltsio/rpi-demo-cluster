@@ -106,4 +106,7 @@ kubectl apply -f load-simulator.yaml >> log 2>&1
 echo -ne " Done\nWaiting for load-simulator..."
 deploy_wait default load-simulator 1
 
+echo -ne " Done\nLabeling nodes..."
+./relabel-nodes.sh
+
 echo -e " Done\nCluster setup complete."
