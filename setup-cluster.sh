@@ -59,12 +59,12 @@ ds_wait kube-system kube-flannel-ds 5
 echo -ne " Done\nWaiting for kube-dns..."
 deploy_wait kube-system kube-dns 1
 
-echo -ne " Done\nInstalling influxdb..."
-kubectl apply -f influxdb.yaml >> log 2>&1
-
-echo -ne " Done\nWaiting for influxdb..."
-deploy_wait kube-system monitoring-influxdb 1
-
+# echo -ne " Done\nInstalling influxdb..."
+# kubectl apply -f influxdb.yaml >> log 2>&1
+#
+# echo -ne " Done\nWaiting for influxdb..."
+# deploy_wait kube-system monitoring-influxdb 1
+#
 echo -ne " Done\nInstalling heapster..."
 kubectl apply -f heapster.yaml >> log 2>&1
 
