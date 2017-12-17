@@ -65,8 +65,8 @@ deploy_wait kube-system monitoring-influxdb 1
 echo -ne " Done\nInstalling heapster..."
 kubectl apply -f heapster.yaml >> log 2>&1
 
-echo -ne " Done\nWaiting for heapster..."
-deploy_wait kube-system heapster 1
+#echo -ne " Done\nWaiting for heapster..."
+#deploy_wait kube-system heapster 1
 
 echo -ne " Done\nInstalling traefik..."
 kubectl apply -f traefik.yaml >> log 2>&1
