@@ -11,7 +11,6 @@ function label() {
   kubectl label node "pico$1" blinktReadyColor=cpu
 }
 
-label 0
 label 1
 label 2
 label 3

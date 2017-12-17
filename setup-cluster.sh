@@ -86,12 +86,20 @@ kubectl apply -f kubernetes-dashboard.yaml >> log 2>&1
 echo -ne " Done\nWaiting for kubernetes-dashboard..."
 deploy_wait kube-system kubernetes-dashboard 1
 
-echo -ne " Done\nLabeling nodes..."
-./relabel-nodes.sh
-
 echo -ne " Done\nInstalling blinkt nodes..."
 kubectl apply -f blinkt-k8s-controller-rbac.yaml >> log 2>&1
 kubectl apply -f blinkt-k8s-controller-nodes.yaml >> log 2>&1
+
+echo -ne " Done\nLabeling master node..."
+kubectl label node "pico0" blinktShow-
+kubectl label node "pico0" blinktImage-
+kubectl label node "pico0" blinktReadyColor-
+kubectl label node "pico0" blinktShow=true
+kubectl label node "pico0" blinktImage=nodes
+kubectl label node "pico0" blinktReadyColor=cpu
+
+echo -ne " Done\nLabeling nodes..."
+./relabel-nodes.sh
 
 echo -ne " Done\nInstalling blinkt pods..."
 kubectl apply -f blinkt-k8s-controller-pods.yaml >> log 2>&1
