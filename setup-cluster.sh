@@ -80,11 +80,11 @@ kubectl label node pico0 loadBalancer=true >> log 2>&1
 echo -ne " Done\nWaiting for traefik..."
 deploy_wait kube-system traefik-ingress-controller 1
 
-echo -ne " Done\nInstalling kubernetes-dashboard..."
-kubectl apply -f kubernetes-dashboard.yaml >> log 2>&1
-
-echo -ne " Done\nWaiting for kubernetes-dashboard..."
-deploy_wait kube-system kubernetes-dashboard 1
+# echo -ne " Done\nInstalling kubernetes-dashboard..."
+# kubectl apply -f kubernetes-dashboard.yaml >> log 2>&1
+#
+# echo -ne " Done\nWaiting for kubernetes-dashboard..."
+# deploy_wait kube-system kubernetes-dashboard 1
 
 echo -ne " Done\nLabeling nodes..."
 ./relabel-nodes.sh
