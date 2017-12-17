@@ -9,7 +9,7 @@ function error {
 function resource_wait {
     while [ "$(kubectl get $1 -n $2 $3 -o json | jq .status.$4)" != "$5" ]
     do
-        echo "kubectl get $1 -n $2 $3 -o json | jq .status.$4"
+        echo "\nkubectl get $1 -n $2 $3 -o json | jq .status.$4"
         sleep 5
     done
 }
@@ -65,11 +65,11 @@ deploy_wait kube-system kube-dns 1
 # echo -ne " Done\nWaiting for influxdb..."
 # deploy_wait kube-system monitoring-influxdb 1
 #
-echo -ne " Done\nInstalling heapster..."
-kubectl apply -f heapster.yaml >> log 2>&1
-
-echo -ne " Done\nWaiting for heapster..."
-deploy_wait kube-system heapster 1
+# echo -ne " Done\nInstalling heapster..."
+# kubectl apply -f heapster.yaml >> log 2>&1
+#
+# echo -ne " Done\nWaiting for heapster..."
+# deploy_wait kube-system heapster 1
 
 echo -ne " Done\nInstalling traefik..."
 kubectl apply -f traefik.yaml >> log 2>&1
