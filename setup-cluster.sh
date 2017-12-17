@@ -50,7 +50,7 @@ ds_wait kube-system kube-flannel-ds 1
 echo -ne " Done\nJoining workers..."
 parallel-ssh -i -h worker-nodes -t 0 -v "sudo kubeadm reset && sudo kubeadm join --token 123456.1234567890123456 192.168.121.2:6443 >> log 2>&1"
 
-echo -ne " Done\nWaiting for flannel go scale..."
+echo -ne " Done\nWaiting for flannel to scale..."
 ds_wait kube-system kube-flannel-ds 5
 
 echo -ne " Done\nWaiting for kube-dns..."
