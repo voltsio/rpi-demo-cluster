@@ -86,6 +86,9 @@ kubectl apply -f kubernetes-dashboard.yaml >> log 2>&1
 echo -ne " Done\nWaiting for kubernetes-dashboard..."
 deploy_wait kube-system kubernetes-dashboard 1
 
+echo -ne " Done\nLabeling nodes..."
+./relabel-nodes.sh
+
 echo -ne " Done\nInstalling blinkt nodes..."
 kubectl apply -f blinkt-k8s-controller-rbac.yaml >> log 2>&1
 kubectl apply -f blinkt-k8s-controller-nodes.yaml >> log 2>&1
@@ -107,8 +110,5 @@ kubectl apply -f load-simulator.yaml >> log 2>&1
 
 echo -ne " Done\nWaiting for load-simulator..."
 deploy_wait default load-simulator 1
-
-echo -ne " Done\nLabeling nodes..."
-./relabel-nodes.sh
 
 echo -e " Done\nCluster setup complete."
