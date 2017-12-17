@@ -7,9 +7,10 @@ function error {
 }
 
 function resource_wait {
+  echo ""
     while [ "$(kubectl get $1 -n $2 $3 -o json | jq .status.$4)" != "$5" ]
     do
-        echo "\nkubectl get $1 -n $2 $3 -o json | jq .status.$4"
+        echo "kubectl get $1 -n $2 $3 -o json | jq .status.$4"
         sleep 5
     done
 }
